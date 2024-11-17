@@ -3,6 +3,7 @@ from typing import Set
 
 from node import Node
 
+
 @dataclass(frozen=True)
 class Edge:
     nodes: tuple[Node, Node]
@@ -12,6 +13,7 @@ class Edge:
 
     def copy_with_different_point(self, u, v):
         return Edge((u, v), self.label, self.b, self.r)
+
 
 @dataclass(frozen=True)
 class HyperEdge:

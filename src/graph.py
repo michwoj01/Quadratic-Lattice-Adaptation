@@ -4,11 +4,13 @@ from edge import Edge, HyperEdge
 from node import Node
 from production import Production
 
+
 class Attr:
     LVL = "level"
     LBL = "label"
     X = "x"
     Y = "y"
+
 
 class Graph:
 
@@ -46,7 +48,7 @@ class Graph:
         return self._G.edges
 
     def get_edge(self, u: Node, v: Node) -> Edge:
-        return self.get_edges()[u, v]['hyperEdge']
+        return self.get_edges()[u, v]["hyperEdge"]
 
     def get_hyperEdges(self):
         return self.hyperEdges
@@ -81,19 +83,19 @@ class Graph:
 
     def get_node_neighbours(self, node: Node):
         return self._G.neighbors(node)
-            
+
     def get_subgraph_on_nodes(self, nodes: List[Node]):
         return self._G.subgraph(nodes)
 
     def get(self, node: Node):
         # already exists
         return self._G[node]
-        
+
     def copy(self):
         new_graph = Graph()
         new_graph._G = self._G.copy()
         return new_graph
-    
+
     def get_data(self):
         xs = nx.get_node_attributes(self._G, Attr.X)
         ys = nx.get_node_attributes(self._G, Attr.Y)

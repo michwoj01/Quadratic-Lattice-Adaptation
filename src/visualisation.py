@@ -3,11 +3,13 @@ from graph import Graph, Attr
 import matplotlib.pyplot as plt
 import os
 
+
 def create_directory(path):
     path = os.path.normpath(path)
     dir_path = os.path.dirname(path)
     if dir_path and not os.path.exists(dir_path):
         os.makedirs(dir_path)
+
 
 def debug_print(g: Graph):
     print(g)
@@ -27,7 +29,9 @@ def draw(g: Graph, filename: str = "test_draw.png") -> None:
     # create labels for nodes by adding 0.3 to y coordinate
     pos_labels = {node: (x, y + 0.3) for node, (x, y) in pos.items()}
 
-    labels = {node: f"{round(xs[node],2 ), round(ys[node],2)}" for node in g.get_nodes()}
+    labels = {
+        node: f"{round(xs[node],2 ), round(ys[node],2)}" for node in g.get_nodes()
+    }
 
     plt.figure(figsize=(12, 4))
 
