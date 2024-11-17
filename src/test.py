@@ -2,7 +2,7 @@ from edge import Edge
 from graph import Graph
 from node import Node
 from production import Production
-from src.edge import HyperEdge
+from edge import HyperEdge
 from visualisation import draw
 from p1 import P1Example
 
@@ -43,3 +43,5 @@ et1 = Edge((t1, t2), "E", False, False)
 et2 = Edge((t2, t1), "E", False, False)
 #
 print(et1 == et2)
+
+draw(g, "test_draw.png")

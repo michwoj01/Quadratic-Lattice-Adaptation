@@ -32,7 +32,7 @@ class Graph:
         assert not self.has_node(node)
         self._G.add_node(node)
 
-    def get_nodes(self):
+    def get_nodes(self) -> List[Node]:
         return self._G.nodes
 
     def add_hyperEdge(self, hyperEdge: HyperEdge):
@@ -87,16 +87,10 @@ class Graph:
     def get_subgraph_on_nodes(self, nodes: List[Node]):
         return self._G.subgraph(nodes)
 
-    def get(self, node: Node):
-        # already exists
-        return self._G[node]
-
     def copy(self):
         new_graph = Graph()
         new_graph._G = self._G.copy()
         return new_graph
 
-    def get_data(self):
-        xs = nx.get_node_attributes(self._G, Attr.X)
-        ys = nx.get_node_attributes(self._G, Attr.Y)
-        return xs, ys
+    def get_inner(self):
+        return self._G
