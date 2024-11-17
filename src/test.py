@@ -36,7 +36,10 @@ print(g.get_nodes())
 print(g.get_edges())
 print(g.get_hyperEdges())
 
-# t1 = Node(1, 1, False)
-# t2 = Node(1, 1, True)
+t1 = Node(1, 1, False)
+t2 = Node(1, 1, True)
+
+et1 = Edge((t1, t2), "E", False, False)
+et2 = Edge((t2, t1), "E", False, False)
 #
-# print(t1 == t2)
+print(et1 == et2)
