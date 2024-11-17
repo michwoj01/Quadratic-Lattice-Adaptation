@@ -16,7 +16,7 @@ class Graph:
 
     def __init__(self):
         self._G = nx.Graph()
-        self.hyperEdges = set()
+        self._hyperEdges = set()
 
     def has_node(self, node: Node) -> bool:
         return node in self._G
@@ -26,7 +26,7 @@ class Graph:
         return self._G.has_edge(u, v)
 
     def has_hyperEdge(self, hyperEdge: HyperEdge) -> bool:
-        return hyperEdge in self.hyperEdges
+        return hyperEdge in self._hyperEdges
 
     def add_node(self, node: Node) -> None:
         assert not self.has_node(node)
@@ -37,7 +37,7 @@ class Graph:
 
     def add_hyperEdge(self, hyperEdge: HyperEdge):
         assert not self.has_hyperEdge(hyperEdge)
-        self.hyperEdges.add(hyperEdge)
+        self._hyperEdges.add(hyperEdge)
 
     def add_edge(self, edge: Edge):
         assert not self.has_edge(edge)
@@ -51,7 +51,7 @@ class Graph:
         return self.get_edges()[u, v]["hyperEdge"]
 
     def get_hyperEdges(self):
-        return self.hyperEdges
+        return self._hyperEdges
 
     def remove_node(self, node: Node):
         # also removes the edge attached to this node
@@ -64,7 +64,7 @@ class Graph:
 
     def remove_hyperEdge(self, hyperEdge: HyperEdge):
         assert self.has_hyperEdge(hyperEdge)
-        self.hyperEdges.remove(hyperEdge)
+        self._hyperEdges.remove(hyperEdge)
 
     def replace_node(self, old_node: Node, new_node: Node):
         assert self.has_node(old_node)
@@ -90,7 +90,24 @@ class Graph:
     def copy(self):
         new_graph = Graph()
         new_graph._G = self._G.copy()
+        new_graph._hyperEdges = self._hyperEdges.copy()
         return new_graph
 
     def get_inner(self):
         return self._G
+
+    def __convert_hyperEdges_to_edges(self):
+        for hyperEdge in self.get_hyperEdges():
+            nodes = hyperEdge.nodes
+            x = sum([node.x for node in nodes]) / len(nodes)
+            y = sum([node.y for node in nodes]) / len(nodes)
+            new_node = Node(x, y, False)
+            self.add_node(new_node)
+            for node in nodes:
+                self.add_edge(Edge((new_node, node), "E", False, False))
+        self._hyperEdges = set()
+
+    def get_visual_representation(self):
+        new_g = self.copy()
+        new_g.__convert_hyperEdges_to_edges()
+        return new_g
