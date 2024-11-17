@@ -1,6 +1,6 @@
 from typing import List
 import networkx as nx
-from edge import Edge
+from edge import Edge, HyperEdge
 from node import Node
 from production import Production
 
@@ -14,6 +14,7 @@ class Graph:
 
     def __init__(self):
         self._G = nx.Graph()
+        self.hyperEdges = set()
 
     def has_node(self, node: Node) -> bool:
         return node in self._G
@@ -22,13 +23,22 @@ class Graph:
         u, v = edge.nodes
         return self._G.has_edge(u, v)
 
+    def has_hyperEdge(self, hyperEdge: HyperEdge) -> bool:
+        return hyperEdge in self.hyperEdges
+
     def add_node(self, node: Node) -> None:
+        assert not self.has_node(node)
         self._G.add_node(node)
 
     def get_nodes(self):
         return self._G.nodes
-    
+
+    def add_hyperEdge(self, hyperEdge: HyperEdge):
+        assert not self.has_hyperEdge(hyperEdge)
+        self.hyperEdges.add(hyperEdge)
+
     def add_edge(self, edge: Edge):
+        assert not self.has_edge(edge)
         u, v = edge.nodes
         self._G.add_edge(u, v, hyperEdge=edge)
 
@@ -38,14 +48,21 @@ class Graph:
     def get_edge(self, u: Node, v: Node) -> Edge:
         return self.get_edges()[u, v]['hyperEdge']
 
+    def get_hyperEdges(self):
+        return self.hyperEdges
+
     def remove_node(self, node: Node):
-        # also removes the edge
+        # also removes the edge attached to this node
         self._G.remove_node(node)
 
     def remove_edge(self, edge: Edge):
         assert self.has_edge(edge)
         u, v = edge.nodes
         self._G.remove_edge(u, v)
+
+    def remove_hyperEdge(self, hyperEdge: HyperEdge):
+        assert self.has_hyperEdge(hyperEdge)
+        self.hyperEdges.remove(hyperEdge)
 
     def replace_node(self, old_node: Node, new_node: Node):
         assert self.has_node(old_node)
