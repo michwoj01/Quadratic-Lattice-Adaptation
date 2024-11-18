@@ -45,7 +45,11 @@ class Graph:
         self._G.add_edge(u, v, hyperEdge=edge)
 
     def get_edges(self):
-        return self._G.edges
+        edges = []
+        for u, v, data in self._G.edges(data=True):
+            edge = data["hyperEdge"]
+            edges.append(edge)
+        return edges
 
     def get_edge(self, u: Node, v: Node) -> Edge:
         return self.get_edges()[u, v]["hyperEdge"]
