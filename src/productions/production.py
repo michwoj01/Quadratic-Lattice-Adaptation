@@ -14,9 +14,9 @@ class Production(metaclass=abc.ABCMeta):
         )
 
     @abc.abstractmethod
-    def check(self, G) -> bool:
+    def check(self, g) -> bool:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def apply(self, G):
+    def apply(self, g):
         raise NotImplementedError

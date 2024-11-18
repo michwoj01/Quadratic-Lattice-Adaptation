@@ -23,7 +23,7 @@ class Edge:
 
 @dataclass(frozen=True)
 class HyperEdge:
-    nodes: Set[Node]
+    nodes: tuple[Node, ...]
     label: str
     b: bool | None
     r: bool | None

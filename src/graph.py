@@ -2,7 +2,7 @@ from typing import List
 import networkx as nx
 from edge import Edge, HyperEdge
 from node import Node
-from production import Production
+from src.productions.production import Production
 
 
 class Attr:
@@ -80,6 +80,12 @@ class Graph:
         self.add_edge(new_edge)
 
     # todo - use production
+    def apply(self, production: Production):
+        assert production.check(self)
+        return production.apply(self)
+
+    def check_if_production_possible(self, production: Production):
+        return production.check(self)
 
     def get_node_neighbours(self, node: Node):
         return self._G.neighbors(node)

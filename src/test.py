@@ -1,10 +1,9 @@
 from edge import Edge
 from graph import Graph
 from node import Node
-from production import Production
 from edge import HyperEdge
 from visualisation import draw
-from p1 import P1Example
+from src.productions.p1 import P1Example
 
 # X --- E --- X
 # |  \     /  |
@@ -32,9 +31,9 @@ g.add_edge(e3)
 g.add_edge(e4)
 g.add_hyperEdge(e5)
 
-print(g.get_hyperEdges())
-# print(g.get_nodes())
-# print(g.get_edges())
-# print(g.get_hyperEdges())
-
-draw(g, "test_draw.png")
+draw(g, "test-before-production.png")
+p1 = P1Example()
+if g.check_if_production_possible(p1):
+    g = g.apply(p1)
+draw(g, "test-after-production.png")
+print(g.get_nodes())
