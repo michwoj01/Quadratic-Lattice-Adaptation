@@ -35,7 +35,7 @@ class Node:
         :return: Pretty display name, disable for debugging
         """
         if self.hyper:
-            # return self.hypertag
+            return self.hypertag
             return self.label.replace("n", "").replace("m", "")
 
         return self.label

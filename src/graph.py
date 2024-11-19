@@ -69,10 +69,14 @@ class Graph:
             v_self: Node
             v_left: Node
             for v_self, v_left in iso_map.items():
-                print("removing", v_self)
-                self._G.remove_node(v_self)
+                if v_left.hyper:
+                    # remove only hyper-nodes
+                    # normal nodes will get the same label and NetworkX
+                    # will only try to update their args (not recreate them)
+                    print("removing", v_self)
+                    self._G.remove_node(v_self)
 
-                if not v_left.hyper:
+                else:
                     self.normal_nodes.remove(v_self)
                     i = left.normal_nodes.index(v_left)
                     left.normal_nodes[i] = Node(v_self.x, v_self.y, v_self.label)
@@ -90,4 +94,8 @@ class Graph:
                 # were created directly by the production
                 self._G.add_edge(u, v)
 
+            print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
+            print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
+
+            # TODO next production breaks
             # break

@@ -50,7 +50,7 @@ draw(g, "test-before-production.png")
 p1 = P1Example()
 try:
     g.apply(p1)
-except:
-    print("err")
+except Exception as e:
+    print("ERROR:", e)
 
 draw(g, "test-after-production.png")
