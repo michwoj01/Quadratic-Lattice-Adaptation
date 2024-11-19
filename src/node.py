@@ -25,9 +25,9 @@ class Node:
         For normal nodes: no not care at all (can match any node)
         """
         if self.hyper:
-            return self.hyperref.tag
-
-        return ""
+            return self.hyperref.get_matcher_label()
+        else:
+            return self.hanging
 
 
     def get_display_label(self):

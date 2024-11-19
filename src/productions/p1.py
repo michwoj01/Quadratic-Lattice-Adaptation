@@ -18,7 +18,7 @@ class P1Example(Production):
         g.add_edge(HyperEdge((n2, n3), "E"))
         g.add_edge(HyperEdge((n3, n4), "E"))
         g.add_edge(HyperEdge((n4, n1), "E"))
-        g.add_edge(HyperEdge((n3, n4, n1, n2), "Q"))
+        g.add_edge(HyperEdge((n3, n4, n1, n2), "Q", rip=True))
         return g
 
     def get_right_side(self, left: Graph, lvl: int):
@@ -50,9 +50,9 @@ class P1Example(Production):
         g.add_edge(HyperEdge((n8, n9), "E"))
 
         # Q-tag hyper-nodes
-        g.add_edge(HyperEdge((n1, n5, n9, n8), "Q"))
-        g.add_edge(HyperEdge((n5, n2, n6, n9), "Q"))
-        g.add_edge(HyperEdge((n8, n9, n7, n4), "Q"))
-        g.add_edge(HyperEdge((n9, n6, n3, n7), "Q"))
+        g.add_edge(HyperEdge((n1, n5, n9, n8), "Q", rip=True))
+        g.add_edge(HyperEdge((n5, n2, n6, n9), "Q", rip=True))
+        g.add_edge(HyperEdge((n8, n9, n7, n4), "Q", rip=True))
+        g.add_edge(HyperEdge((n9, n6, n3, n7), "Q", rip=True))
 
         return g

@@ -3,8 +3,10 @@ from edge import HyperEdge
 from node import Node
 from productions.production import Production, CannotApplyProduction
 
+ATTR_MATCHER = "mlabel"
+
 def _node_match(v, u):
-    return v["label"] == u["label"]
+    return v[ATTR_MATCHER] == u[ATTR_MATCHER]
 
 class Graph:
 
@@ -14,12 +16,13 @@ class Graph:
         # (used by apply() left-side node attributes updating)
         self.ordered_nodes: list[Node] = []
         # level should be prepended to each new node in productions
+        # used to generate unique labels on all recursion levels
         self.level = 1
 
     def add_node(self, node: Node) -> None:
         self._G.add_node(node)
         # add label to attrs for GraphMatcher
-        self._G.nodes[node]["label"] = node.get_matcher_label()
+        self._G.nodes[node][ATTR_MATCHER] = node.get_matcher_label()
         # add to ordered nodes
         self.ordered_nodes.append(node)
 

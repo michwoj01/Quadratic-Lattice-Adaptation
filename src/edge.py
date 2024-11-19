@@ -20,3 +20,7 @@ class HyperEdge:
             label += node.label
 
         return Node(x, y, label, hyper=True, hyperref=self)
+
+    def get_matcher_label(self):
+        # do we want to match boundary here?
+        return self.tag, self.rip

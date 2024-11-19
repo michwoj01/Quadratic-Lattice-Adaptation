@@ -25,7 +25,8 @@ class Production(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_right_side(self, left, lvl: int):
         """
-        :param left: by now left side updated with values from the graph (type Graph)
+        :param left: by now left side updated with values from the graph (type Graph),
+                     please reuse outer edges from left (or at least its labels)
         :param lvl: node level, prepend to any new nodes created, remember their label must be unique
         :return: right side with correct parameters
         """
