@@ -28,18 +28,23 @@ n9 = Node(0.5, 0.5, "n9")
 for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
     g.add_node(n)
 
-g.add_edge(HyperEdge((n1, n5), "E"))
-g.add_edge(HyperEdge((n5, n2), "E"))
-g.add_edge(HyperEdge((n1, n8), "E"))
+# around the border
+g.add_edge(HyperEdge((n1, n5), "E", boundary=True))
+g.add_edge(HyperEdge((n5, n2), "E", boundary=True))
+g.add_edge(HyperEdge((n2, n6), "E", boundary=True))
+g.add_edge(HyperEdge((n6, n3), "E", boundary=True))
+g.add_edge(HyperEdge((n3, n7), "E", boundary=True))
+g.add_edge(HyperEdge((n7, n4), "E", boundary=True))
+g.add_edge(HyperEdge((n4, n8), "E", boundary=True))
+g.add_edge(HyperEdge((n8, n1), "E", boundary=True))
+
+# to center hyper-node
 g.add_edge(HyperEdge((n5, n9), "E"))
-g.add_edge(HyperEdge((n2, n6), "E"))
+g.add_edge(HyperEdge((n6, n9), "E"))
+g.add_edge(HyperEdge((n7, n9), "E"))
 g.add_edge(HyperEdge((n8, n9), "E"))
-g.add_edge(HyperEdge((n9, n6), "E"))
-g.add_edge(HyperEdge((n8, n4), "E"))
-g.add_edge(HyperEdge((n9, n7), "E"))
-g.add_edge(HyperEdge((n6, n3), "E"))
-g.add_edge(HyperEdge((n4, n7), "E"))
-g.add_edge(HyperEdge((n7, n3), "E"))
+
+# Q-tag hyper-nodes
 g.add_edge(HyperEdge((n1, n5, n9, n8), "Q"))
 g.add_edge(HyperEdge((n5, n2, n6, n9), "Q"))
 g.add_edge(HyperEdge((n8, n9, n7, n4), "Q"))

@@ -10,10 +10,9 @@ class Graph:
 
     def __init__(self):
         self._G = nx.Graph()
-        # list of normal nodes (not hyper-nodes),
-        # maintaining insertion order (used by apply()
-        # left-side node attributes updating)
-        self.normal_nodes: list[Node] = []
+        # list of nodes maintaining insertion order
+        # (used by apply() left-side node attributes updating)
+        self.ordered_nodes: list[Node] = []
         # level should be prepended to each new node in productions
         self.level = 1
 
@@ -21,9 +20,8 @@ class Graph:
         self._G.add_node(node)
         # add label to attrs for GraphMatcher
         self._G.nodes[node]["label"] = node.get_matcher_label()
-        # add to normal nodes
-        if not node.hyper:
-            self.normal_nodes.append(node)
+        # add to ordered nodes
+        self.ordered_nodes.append(node)
 
     def add_edge(self, edge: HyperEdge):
         # we treat every edge as a hyper-edge (node in networkx)
@@ -74,8 +72,9 @@ class Graph:
             self.level += 1
 
             # update left each match because of the
-            # left.normal_nodes modification below
+            # left.ordered_nodes modification below
             left: Graph = production.get_left_side()
+            ordered_nodes_update = {}
 
             v_self: Node
             v_left: Node
@@ -87,17 +86,18 @@ class Graph:
                     print("removing", v_self)
                     self._G.remove_node(v_self)
 
-                else:
-                    self.normal_nodes.remove(v_self)
-                    i = left.normal_nodes.index(v_left)
-                    left.normal_nodes[i] = Node(v_self.x, v_self.y, v_self.label)
+                i = left.ordered_nodes.index(v_left)
+                ordered_nodes_update[i] = v_self#Node(v_self.x, v_self.y, v_self.label)
 
+            # 2-pass because index() behaved wrong while updating the nodes
+            for i, node in ordered_nodes_update.items():
+                left.ordered_nodes[i] = node
 
             right: Graph = production.get_right_side(left, self.level)
 
             for node in right._G.nodes:
                 # print("adding", node)
-                # call to out add_node() to update normal_nodes list
+                # call to out add_node() to update ordered_nodes list
                 self.add_node(node)
 
             for u, v in right._G.edges:
