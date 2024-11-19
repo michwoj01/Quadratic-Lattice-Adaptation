@@ -41,7 +41,9 @@ class Graph:
 
         # subgraph algo doesn't differentiate rotations
         # apply productions only to points not yet processed
-        processed: dict[frozenset[Node], dict[any]] = dict()
+        # key: source graph (self) set of Nodes the isomorphism will operate on
+        # value: isomorphism mapping from self to left production side
+        processed: dict[frozenset[Node], dict[Node, Node]] = dict()
         # set of sets is required, as nodes can border other
         # significantly different matches (can't just add them all
         # to a single set), using frozenset because set is unhashable
@@ -58,8 +60,17 @@ class Graph:
 
         # 2-pass not to modify the graph while iterating it
 
-        for iso_map in processed.values():
+        for iso_map_k, iso_map in processed.items():
             print("\nmatch")
+
+            if not iso_map_k.issubset(self._G.nodes):
+                # if the nodes disappeared from source graph,
+                # then skip this mapping
+                print("rejected")
+                for node in iso_map_k - self._G.nodes:
+                    print(f"\tmissing node {node.label}")
+                continue
+
             self.level += 1
 
             # update left each match because of the
@@ -96,6 +107,3 @@ class Graph:
 
             print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
             print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
-
-            # TODO next production breaks
-            # break
