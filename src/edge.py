@@ -1,35 +1,26 @@
 from dataclasses import dataclass
-from typing import Set
-
 from node import Node
-
-
-@dataclass(frozen=True)
-class Edge:
-    nodes: tuple[Node, Node]
-    label: str
-    b: bool | None
-    r: bool | None
-
-    def copy_with_different_point(self, u, v):
-        return Edge((u, v), self.label, self.b, self.r)
-
-    def __hash__(self) -> int:
-        return hash(set(self.nodes))
-
-    def __eq__(self, value: object) -> bool:
-        return value and set(self.nodes) == set(value.nodes)
-
 
 @dataclass(frozen=True)
 class HyperEdge:
     nodes: tuple[Node, ...]
-    label: str
-    b: bool | None
-    r: bool | None
+    tag: str
+    boundary: bool = False
+    rip: bool = False
 
-    def __hash__(self) -> int:
-        return hash(self.nodes)
+    def get_hypernode(self):
+        # get networkx node that will represent this hyper-edge
+        # place simulated node at the average of all connecting nodes
+        x = sum([node.x for node in self.nodes]) / len(self.nodes)
+        y = sum([node.y for node in self.nodes]) / len(self.nodes)
 
-    def __eq__(self, value: object) -> bool:
-        return value and self.nodes == value.nodes
+        # create unique node label
+        label = self.tag
+        for node in self.nodes:
+            label += node.label
+
+        return Node(x, y, label, hyper=True, hyperref=self)
+
+    def get_matcher_label(self):
+        # do we want to match boundary here?
+        return self.tag, self.rip

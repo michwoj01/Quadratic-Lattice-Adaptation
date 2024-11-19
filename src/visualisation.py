@@ -1,5 +1,5 @@
 import networkx as nx
-from graph import Graph, Attr
+from graph import Graph
 import matplotlib.pyplot as plt
 import os
 
@@ -11,24 +11,63 @@ def create_directory(path):
         os.makedirs(dir_path)
 
 
-def draw(g: Graph, filename: str = "test_draw.png") -> None:
-    create_directory(filename)
+def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
 
-    g = g.get_visual_representation()
-    pos = {node: (node.x, node.y) for node in g.get_nodes()}
-    pos_labels = {node: (x, y + 0.3) for node, (x, y) in pos.items()}
-    labels = {node: f"{round(node.x,2 ), round(node.y,2)}" for node in g.get_nodes()}
+    if hyper:
+        shape = "s" # square
+        size = 2000 # large
+    else:
+        shape = "o" # round
+        size  = 200 # small
 
-    plt.figure(figsize=(12, 4))
-
+    pos = {node: (node.x, node.y) for node in gx.nodes()}
     nx.draw_networkx_nodes(
-        g.get_inner(), pos, node_size=2000, edgecolors="black", linewidths=5, alpha=0.5
+        gx, pos, edgecolors="black", linewidths=5, alpha=0.5,
+        node_shape=shape,
+        node_size=size
     )
-    nx.draw_networkx_edges(g.get_inner(), pos, width=5, alpha=0.3)
-    nx.draw_networkx_labels(g.get_inner(), pos_labels, labels)
+
+    if hyper:
+        # inside labels (node label)
+        label_pos = {node: (x, y) for node, (x, y) in pos.items()}
+        label_val = {node: node.get_display_label() for node in gx.nodes()}
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=20)
+
+        # outside labels (boundary, rip)
+        label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
+        label_val = {}
+        for node in gx.nodes():
+            if node.hyperref.tag == "Q":
+                label_val[node] = f"R={1 if node.hyperref.rip else 0}"
+            elif node.hyperref.tag == "E":
+                label_val[node] = f"B={1 if node.hyperref.boundary else 0}"
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=12)
+    else:
+        # outside labels (node label + hanging + position)
+        label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
+        label_val = {node:  f"{node.get_display_label()}, h={1 if node.hanging else 0}\n" +
+                            f"({node.x:4.2f}, {node.y:4.2f})" for node in gx.nodes()}
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=12)
+
+
+def draw(g: Graph, filename: str = "test_draw.png"):
+    create_directory(filename)
+    plt.figure(figsize=(12, 12))
+
+    gx: nx.Graph = g._G
+
+    gx_normal = gx.subgraph(filter(lambda node: not node.hyper, gx))
+    gx_hyper  = gx.subgraph(filter(lambda node:     node.hyper, gx))
+
+    draw_nx_subgraph(g, gx_normal, False)
+    draw_nx_subgraph(g, gx_hyper,  True)
+
+    pos = {node: (node.x, node.y) for node in gx.nodes()}
+    nx.draw_networkx_edges(gx, pos, width=5, alpha=0.3)
 
     ax = plt.gca()
-    ax.margins(0.50)
+    ax.margins(0.10)
+    plt.tight_layout()
     plt.axis("off")
     plt.savefig(filename)
     plt.cla()
