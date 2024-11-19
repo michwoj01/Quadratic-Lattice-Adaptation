@@ -8,9 +8,9 @@ class Node:
     # main identification string
     label: str
     # extra args
-    hypertag: str = ""      # hyper-node tag (E/Q/I/etc.)
     hanging: bool = False
     hyper: bool = False
+    hyperref: any = None # type HyperEdge
 
     # compares and hashes only label
     def __eq__(self, other):
@@ -25,7 +25,7 @@ class Node:
         For normal nodes: no not care at all (can match any node)
         """
         if self.hyper:
-            return self.hypertag
+            return self.hyperref.tag
 
         return ""
 
@@ -35,7 +35,7 @@ class Node:
         :return: Pretty display name, disable for debugging
         """
         if self.hyper:
-            return self.hypertag
+            return self.hyperref.tag
             return self.label.replace("n", "").replace("m", "")
 
         return self.label

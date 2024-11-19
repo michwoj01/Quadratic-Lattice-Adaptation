@@ -4,7 +4,7 @@ from node import Node
 @dataclass(frozen=True)
 class HyperEdge:
     nodes: tuple[Node, ...]
-    label: str
+    tag: str
     boundary: bool = False
     rip: bool = False
 
@@ -15,8 +15,8 @@ class HyperEdge:
         y = sum([node.y for node in self.nodes]) / len(self.nodes)
 
         # create unique node label
-        label = self.label
+        label = self.tag
         for node in self.nodes:
             label += node.label
 
-        return Node(x, y, label, hanging=False, hyper=True, hypertag=self.label)
+        return Node(x, y, label, hyper=True, hyperref=self)

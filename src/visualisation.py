@@ -31,15 +31,23 @@ def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
         # inside labels (node label)
         label_pos = {node: (x, y) for node, (x, y) in pos.items()}
         label_val = {node: node.get_display_label() for node in gx.nodes()}
-        label_font = 20
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=20)
+
+        # outside labels (boundary, rip)
+        label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
+        label_val = {}
+        for node in gx.nodes():
+            if node.hyperref.tag == "Q":
+                label_val[node] = f"R={1 if node.hyperref.rip else 0}"
+            elif node.hyperref.tag == "E":
+                label_val[node] = f"B={1 if node.hyperref.boundary else 0}"
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=12)
     else:
-        # outside labels (node label + position)
+        # outside labels (node label + hanging + position)
         label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
         label_val = {node:  f"{node.get_display_label()}, h={1 if node.hanging else 0}\n" +
                             f"({node.x:4.2f}, {node.y:4.2f})" for node in gx.nodes()}
-        label_font = 12
-
-    nx.draw_networkx_labels(gx, label_pos, label_val, font_size=label_font)
+        nx.draw_networkx_labels(gx, label_pos, label_val, font_size=12)
 
 
 def draw(g: Graph, filename: str = "test_draw.png"):
