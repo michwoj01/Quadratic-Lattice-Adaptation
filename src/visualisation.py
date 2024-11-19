@@ -35,8 +35,8 @@ def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
     else:
         # outside labels (node label + position)
         label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
-        # label_val = {node: f"n{g.normal_nodes.index(node)+1}, {node.x:4.2f}, {node.y:4.2f}" for node in gx.nodes()}
-        label_val = {node: f"{node.get_display_label()}, {node.x:4.2f}, {node.y:4.2f}" for node in gx.nodes()}
+        label_val = {node:  f"{node.get_display_label()}, h={1 if node.hanging else 0}\n" +
+                            f"({node.x:4.2f}, {node.y:4.2f})" for node in gx.nodes()}
         label_font = 12
 
     nx.draw_networkx_labels(gx, label_pos, label_val, font_size=label_font)
