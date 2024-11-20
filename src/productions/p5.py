@@ -31,10 +31,6 @@ class P5(Production):
         # passed from above & updated with correct xy values
         n1, n2, n3, n4, n5, n6, n7, hn1, hn2, hn3, hn4, hn5, hn6, hn7, hQ = left.ordered_nodes
         g = Graph()
-        n1 = Node(n1.x, n1.y, "n1", hanging=False)
-        n2 = Node(n2.x, n2.y, "n2", hanging=False)
-        n3 = Node(n3.x, n3.y, "n3", hanging=False)
-        n4 = Node(n4.x, n4.y, "n4", hanging=False)
         n5 = Node(n5.x, n5.y, "n5", hanging=False)
         n6 = Node(n6.x, n6.y, "n6", hanging=False)
         n7 = Node(n7.x, n7.y, "n7", hanging=False)
