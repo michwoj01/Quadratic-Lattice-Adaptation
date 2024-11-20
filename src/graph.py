@@ -100,8 +100,11 @@ class Graph:
 
             for node in right._G.nodes:
                 # print("adding", node)
-                # call to out add_node() to update ordered_nodes list
-                self.add_node(node)
+                if self._G.has_node(node):
+                    self._substitute_node(node)
+                else:
+                    # call to our add_node() to update ordered_nodes list
+                    self.add_node(node)
 
             for u, v in right._G.edges:
                 # call to NetworkX add_edge() as hyper-edges
@@ -110,3 +113,17 @@ class Graph:
 
             print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
             print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
+
+    def _substitute_node(self, node: Node):
+        """
+        Node must be re-added to update properties like hanging
+        """
+
+        # match by label, save connected nodes and remove
+        nb = self._G.neighbors(node)
+        self._G.remove_node(node)
+
+        # re-add node and connections
+        self.add_node(node)
+        for v in nb:
+            self._G.add_edge(node, v)
