@@ -5,7 +5,7 @@ from edge import HyperEdge
 
 
 @Production.register
-class P6Example(Production):
+class P6(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
         n1 = Node(0, 0, "n1", hanging=False)

@@ -3,7 +3,7 @@ from graph import Graph
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from productions.p5 import P5Example
+from productions.p5 import P5
 
 # 4(h=0)   --  E  --    3(h=0)
 # |  \                 /  |
@@ -35,6 +35,6 @@ GP5.add_edge(HyperEdge((n7, n1), "E", boundary=True))
 GP5.add_edge(HyperEdge((n3, n4, n1, n2), "Q", rip=True))
 
 draw(GP5, "test-before-production.png")
-p5 = P5Example()
+p5 = P5()
 GP5.apply(p5)
 draw(GP5, "test-after-production.png")

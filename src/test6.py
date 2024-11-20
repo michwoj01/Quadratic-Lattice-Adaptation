@@ -3,7 +3,7 @@ from graph import Graph
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from productions.p6 import P6Example
+from productions.p6 import P6
 
 # 4(h=0) -E- 8(h=1) -E- 3(h=0)
 # |  \                 /  |
@@ -37,6 +37,6 @@ GP6.add_edge(HyperEdge((n7, n1), "E", boundary=True))
 GP6.add_edge(HyperEdge((n3, n4, n1, n2), "Q", rip=True))
 
 draw(GP6, "test-before-production.png")
-p6 = P6Example()
+p6 = P6()
 GP6.apply(p6)
 draw(GP6, "test-after-production.png")
