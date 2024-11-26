@@ -8,13 +8,13 @@ from edge import HyperEdge
 class P8(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
-        n1 = Node(0, 0, "n1")
-        n2 = Node(1, 0, "n2")
-        n3 = Node(1, 1, "n3")
-        n4 = Node(0, 1, "n4")
+        n1 = Node(0, 0, "n1", hanging_ignore=True)
+        n2 = Node(1, 0, "n2", hanging_ignore=True)
+        n3 = Node(1, 1, "n3", hanging_ignore=True)
+        n4 = Node(0, 1, "n4", hanging_ignore=True)
         n5 = Node(1, 0.5, "n5", hanging=True)
-        n6 = Node(2, 0.5, "n6")
-        n7 = Node(2, 1, "n7")
+        n6 = Node(2, 0.5, "n6", hanging_ignore=True)
+        n7 = Node(2, 1, "n7", hanging_ignore=True)
         for n in [n1, n2, n3, n4, n5, n6, n7]:
             g.add_node(n)
         g.add_edge(HyperEdge((n2, n5), "E"))
