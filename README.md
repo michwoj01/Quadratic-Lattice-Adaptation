@@ -74,3 +74,50 @@ class P2Example(Production):
 
         return g
 ```
+
+## How to test productions
+Read [unittest](https://docs.python.org/3/library/unittest.html) docs.
+Minimal example below.
+```python
+class TestP1Case1(unittest.TestCase):
+    def setUp(self):
+        self.g = GraphTest()
+        n1 = Node(0, 0, "n1")
+        ...
+        e1 = HyperEdge((n1, n2), "E", boundary=False)
+        ...
+
+        self.p1 = P1()
+
+    def test_stage0(self):
+        draw(self.g, "draw/test1-case1-stage0.png")
+
+        cnt = self.g.count_nodes()
+        self.assertEqual(cnt.normal, 4)
+        ...
+
+    def test_stage1(self):
+        applied = self.g.apply(self.p1)
+        draw(self.g, "draw/test1-case1-stage1.png")
+        self.assertEqual(applied, 1)
+
+        cnt = self.g.count_nodes()
+        self.assertEqual(cnt.normal, 9)
+        ...
+
+    # more test_* functions here
+
+# more classes here
+
+if __name__ == '__main__':
+    unittest.main()
+```
+Each test case is a subclass of `unittest.TestCase` with the name of `TestP<xx>Case<yy>`.
+`setUp()` function creates the graph and instantiates the production.
+Then, `test_stage0()` tests the input graph, and `test_stage1()` tests the output graph. Here,
+`stage` refers to how many times the production was applied.
+You can create more than 2 stages (or just one for the final graph).
+Each stage also generated an image in `draw` folder with the name of `test<xx>-case<yy>-stage<zz>.png`.
+Take a look at `test/test1.py` for an complete example.
+
+**If you want more things tested create an issue.**
