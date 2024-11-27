@@ -3,7 +3,6 @@ from graph import Graph
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from productions.p1 import P1Example
 from productions.p12 import P12Example
 import math
 
@@ -34,10 +33,10 @@ g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
 
 
 # Should produce
-draw(g, "test-before-production1.png")
+draw(g, "draw/test12-case1-stage0.png")
 p12 = P12Example()
 g.apply(p12)
-draw(g, "test-after-production1.png")
+draw(g, "draw/test12-case1-stage1.png")
 
 # ----- 1.1 ----- all good with arbitrary boundaries
 
@@ -66,10 +65,10 @@ g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
 
 
 # Should produce
-draw(g, "test-before-production1.1.png")
+draw(g, "draw/test12-case2-stage0.png")
 p12 = P12Example()
 g.apply(p12)
-draw(g, "test-after-production1.1.png")
+draw(g, "draw/test12-case2-stage1.png")
 
 # ----- 2 ----- wrong left side shape
 
@@ -98,10 +97,10 @@ g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
 
 
 # Should not produce
-draw(g, "test-before-production2.png")
+draw(g, "draw/test12-case3-stage0.png")
 p12 = P12Example()
 g.apply(p12)
-draw(g, "test-after-production2.png")
+draw(g, "draw/test12-case3-stage1.png")
 
 # ----- 3 ----- hanging = 0 on one of the additional vertices
 
@@ -130,10 +129,10 @@ g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
 
 
 # Should not produce
-draw(g, "test-before-production3.png")
+draw(g, "draw/test12-case4-stage0.png")
 p12 = P12Example()
 g.apply(p12)
-draw(g, "test-after-production3.png")
+draw(g, "draw/test12-case4-stage1.png")
 
 # ----- 4 ----- rip = False
 
@@ -162,7 +161,7 @@ g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=False))
 
 
 # Should not produce
-draw(g, "test-before-production4.png")
+draw(g, "draw/test12-case5-stage0.png")
 p12 = P12Example()
 g.apply(p12)
-draw(g, "test-after-production4.png")
+draw(g, "draw/test12-case5-stage1.png")
