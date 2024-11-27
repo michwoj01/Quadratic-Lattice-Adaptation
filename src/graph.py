@@ -36,11 +36,14 @@ class Graph:
             self._G.add_edge(hyper_node, node)
 
     # todo - use production metaclass mixins
-    def apply(self, production: Production):
+    def apply(self, production: Production) -> int:
         matcher = nx.algorithms.isomorphism.GraphMatcher(
             self._G,
             production.get_left_side()._G,
             node_match=_node_match)
+
+        # how many subgraphs were modified with this apply() run
+        applied = 0
 
         # subgraph algo doesn't differentiate rotations
         # apply productions only to points not yet processed
@@ -115,6 +118,9 @@ class Graph:
 
             self._print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
             self._print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
+            applied += 1
+
+        return applied
 
     def _print(self, *args, **kwargs):
         if self.debug:

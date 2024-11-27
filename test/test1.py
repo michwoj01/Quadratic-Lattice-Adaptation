@@ -43,8 +43,9 @@ class TestP1Case1(unittest.TestCase):
         self.assertEqual(cnt.hyper_E_boundary, 2)
 
     def test_stage1(self):
-        self.g.apply(self.p1)
+        applied = self.g.apply(self.p1)
         draw(self.g, "draw/test1-case1-stage1.png")
+        self.assertEqual(applied, 1)
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 9)
@@ -116,8 +117,9 @@ class TestP1Case2(unittest.TestCase):
         self.assertEqual(cnt.hyper_E_boundary, 8)
 
     def test_stage1(self):
-        self.g.apply(self.p1)
+        applied = self.g.apply(self.p1)
         draw(self.g, "draw/test1-case2-stage1.png")
+        self.assertEqual(applied, 2)
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 19)
