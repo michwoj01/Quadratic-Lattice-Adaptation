@@ -37,9 +37,9 @@ def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
         label_pos = {node: (x, y + 0.05) for node, (x, y) in pos.items()}
         label_val = {}
         for node in gx.nodes():
-            if node.hyperref.tag == "Q":
+            if node.hyperref.tag in ["Q", "S"]:
                 label_val[node] = f"R={1 if node.hyperref.rip else 0}"
-            elif node.hyperref.tag == "E":
+            elif node.hyperref.tag in ["E"]:
                 label_val[node] = f"B={1 if node.hyperref.boundary else 0}"
         nx.draw_networkx_labels(gx, label_pos, label_val, font_size=12)
     else:
