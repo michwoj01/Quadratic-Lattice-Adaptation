@@ -11,6 +11,8 @@ class Node:
     hanging: bool = False
     hyper: bool = False
     hyperref: any = None # type HyperEdge
+    # used in defining production's left-side
+    hanging_ignore: bool = False
 
     # compares and hashes only label
     def __eq__(self, other):
@@ -18,16 +20,23 @@ class Node:
     def __hash__(self):
         return hash(self.label)
 
-    def get_matcher_label(self):
+    def get_matcher_label(self) -> dict[str, any]:
         """
         :return: GraphMatcher label, what do we care for in isomorphism matching
         For hyper-nodes: only match its tag
         For normal nodes: no not care at all (can match any node)
         """
         if self.hyper:
-            return self.hyperref.get_matcher_label()
+            # hyper-node tested here
+            # not matching boundary, only tag (E/Q/...) and R property
+            return { "hyper-tag": self.hyperref.tag,
+                     "hyper-rip": self.hyperref.rip }
         else:
-            return self.hanging
+            # normal node
+            if self.hanging_ignore:
+                return { }
+            else:
+                return { "hanging": self.hanging }
 
 
     def get_display_label(self):

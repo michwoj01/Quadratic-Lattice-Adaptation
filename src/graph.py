@@ -5,8 +5,19 @@ from productions.production import Production, CannotApplyProduction
 
 ATTR_MATCHER = "mlabel"
 
-def _node_match(v, u):
-    return v[ATTR_MATCHER] == u[ATTR_MATCHER]
+def _node_match(v_self, v_left):
+    self_attr = v_self[ATTR_MATCHER]
+    left_attr = v_left[ATTR_MATCHER]
+    for k in left_attr:
+        # forcing attrs only the production defines
+        if k not in self_attr:
+            # attr missing
+            return False
+        if left_attr[k] != self_attr[k]:
+            # attr differs
+            return False
+
+    return True
 
 class Graph:
 
