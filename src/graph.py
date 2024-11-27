@@ -10,7 +10,7 @@ def _node_match(v, u):
 
 class Graph:
 
-    def __init__(self):
+    def __init__(self, debug=False):
         self._G = nx.Graph()
         # list of nodes maintaining insertion order
         # (used by apply() left-side node attributes updating)
@@ -18,6 +18,8 @@ class Graph:
         # level should be prepended to each new node in productions
         # used to generate unique labels on all recursion levels
         self.level = 1
+        # debugging log messages
+        self.debug = debug
 
     def add_node(self, node: Node) -> None:
         self._G.add_node(node)
@@ -62,14 +64,14 @@ class Graph:
         # 2-pass not to modify the graph while iterating it
 
         for iso_map_k, iso_map in processed.items():
-            print("\nmatch")
+            self._print("\nmatch")
 
             if not iso_map_k.issubset(self._G.nodes):
                 # if the nodes disappeared from source graph,
                 # then skip this mapping
-                print("rejected")
+                self._print("rejected")
                 for node in iso_map_k - self._G.nodes:
-                    print(f"\tmissing node {node.label}")
+                    self._print(f"\tmissing node {node.label}")
                 continue
 
             self.level += 1
@@ -86,7 +88,7 @@ class Graph:
                     # remove only hyper-nodes
                     # normal nodes will get the same label and NetworkX
                     # will only try to update their args (not recreate them)
-                    print("removing", v_self)
+                    self._print("removing", v_self)
                     self._G.remove_node(v_self)
 
                 i = left.ordered_nodes.index(v_left)
@@ -99,7 +101,7 @@ class Graph:
             right: Graph = production.get_right_side(left, self.level)
 
             for node in right._G.nodes:
-                # print("adding", node)
+                # self._print("adding", node)
                 if self._G.has_node(node):
                     self._substitute_node(node)
                 else:
@@ -111,8 +113,12 @@ class Graph:
                 # were created directly by the production
                 self._G.add_edge(u, v)
 
-            print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
-            print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
+            self._print("normal nodes:", len(list(filter(lambda n: not n.hyper, self._G.nodes))))
+            self._print(" hyper nodes:", len(list(filter(lambda n:     n.hyper, self._G.nodes))))
+
+    def _print(self, *args, **kwargs):
+        if self.debug:
+            print(*args, **kwargs)
 
     def _substitute_node(self, node: Node):
         """

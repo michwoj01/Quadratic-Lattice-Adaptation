@@ -3,7 +3,6 @@ from graph import Graph
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from productions.p1 import P1Example
 from productions.p12 import P12Example
 import math
 
