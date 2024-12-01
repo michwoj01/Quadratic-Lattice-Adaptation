@@ -33,7 +33,7 @@ class P3(Production):
         g = Graph()
         n7 = Node((n1.x + n4.x)/2, (n1.y + n4.y)/2, f"{lvl}n7", hanging=not hn4n1.hyperref.boundary)
         n8 = Node((n3.x + n4.x)/2, (n3.y + n4.y)/2, f"{lvl}n8", hanging=not hn3n4.hyperref.boundary)
-        n9 = Node((n1.x + n2.x + n3.x + n4.x)/4, (n1.x + n2.x + n3.x + n4.x)/4, f"{lvl}n9")
+        n9 = Node((n1.x + n2.x + n3.x + n4.x)/4, (n1.y + n2.y + n3.y + n4.y)/4, f"{lvl}n9")
         
         n5 = Node(old_n5.x, old_n5.y, old_n5.label)
         n6 = Node(old_n6.x, old_n6.y, old_n6.label)
