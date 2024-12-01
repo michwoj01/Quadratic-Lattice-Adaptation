@@ -24,7 +24,7 @@ class TestP3Case1(unittest.TestCase):
         self.g.add_edge(HyperEdge((n6, n2), "E"))
         self.g.add_edge(HyperEdge((n2, n5), "E"))
         self.g.add_edge(HyperEdge((n5, n3), "E"))
-        self.g.add_edge(HyperEdge((n3, n4), "E", boundary=True))
+        self.g.add_edge(HyperEdge((n3, n4), "E"))
         self.g.add_edge(HyperEdge((n4, n1), "E", boundary=True))
 
         self.g.add_edge(HyperEdge((n1, n2, n3, n4), "Q", rip=True))
@@ -39,7 +39,7 @@ class TestP3Case1(unittest.TestCase):
         self.assertEqual(cnt.hyper_Q, 1)
         self.assertEqual(cnt.hyper_Q_rip, 1)
         self.assertEqual(cnt.hyper_E, 6)
-        self.assertEqual(cnt.hyper_E_boundary, 2)
+        self.assertEqual(cnt.hyper_E_boundary, 1)
 
     def test_stage1(self):
         applied = self.g.apply(self.p3)
@@ -48,11 +48,11 @@ class TestP3Case1(unittest.TestCase):
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 9)
-        self.assertEqual(cnt.normal_hanging, 0)
+        self.assertEqual(cnt.normal_hanging, 1)
         self.assertEqual(cnt.hyper_Q, 4)
         self.assertEqual(cnt.hyper_Q_rip, 0)
         self.assertEqual(cnt.hyper_E, 12)
-        self.assertEqual(cnt.hyper_E_boundary, 4)
+        self.assertEqual(cnt.hyper_E_boundary, 2)
 
 class TestP3Case2(unittest.TestCase):
     def setUp(self):
