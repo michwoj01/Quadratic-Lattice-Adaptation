@@ -5,7 +5,7 @@ from edge import HyperEdge
 
 
 @Production.register
-class P1Example(Production):
+class P1(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
         n1 = Node(0, 0, "n1")
@@ -50,9 +50,9 @@ class P1Example(Production):
         g.add_edge(HyperEdge((n8, n9), "E"))
 
         # Q-tag hyper-nodes
-        g.add_edge(HyperEdge((n1, n5, n9, n8), "Q", rip=True))
-        g.add_edge(HyperEdge((n5, n2, n6, n9), "Q", rip=True))
-        g.add_edge(HyperEdge((n8, n9, n7, n4), "Q", rip=True))
-        g.add_edge(HyperEdge((n9, n6, n3, n7), "Q", rip=True))
+        g.add_edge(HyperEdge((n1, n5, n9, n8), "Q"))
+        g.add_edge(HyperEdge((n5, n2, n6, n9), "Q"))
+        g.add_edge(HyperEdge((n8, n9, n7, n4), "Q"))
+        g.add_edge(HyperEdge((n9, n6, n3, n7), "Q"))
 
         return g
