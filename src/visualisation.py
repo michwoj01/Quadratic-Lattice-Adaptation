@@ -72,3 +72,4 @@ def draw(g: Graph, filename: str = "test_draw.png"):
     plt.savefig(filename)
     plt.cla()
     plt.clf()
+    plt.close()
