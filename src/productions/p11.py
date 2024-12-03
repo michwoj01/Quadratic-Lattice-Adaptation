@@ -8,7 +8,7 @@ from edge import HyperEdge
 
 
 @Production.register
-class P11Example(Production):
+class P11(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
         n1 = Node(x=0, y=0, label="n1")
@@ -66,12 +66,12 @@ class P11Example(Production):
         g.add_edge(HyperEdge((n8, n1), "E", boundary=hn8.hyperref.boundary))
 
         # to center hyper-node
-        g.add_edge(HyperEdge((n7, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n9, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n10, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n11, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n12, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n8, n13), "E", boundary=True))
+        g.add_edge(HyperEdge((n7, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n9, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n10, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n11, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n12, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n8, n13), "E", boundary=False))
 
         # Q-tag hyper-nodes
         g.add_edge(HyperEdge((n8, n1, n7, n13), "Q", boundary=False))
