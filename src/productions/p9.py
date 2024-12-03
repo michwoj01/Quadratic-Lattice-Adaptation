@@ -32,8 +32,7 @@ class P9(Production):
         return g
 
     def get_right_side(self, left: Graph, lvl: int):
-        # passed from above & updated with correct xy values
-        print(left.ordered_nodes)
+      
         n1, n2, n3, n4, n5, n6,  hn1, hn2, hn3, hn4, hn5, hn6 , hn7= left.ordered_nodes
         g = Graph()
         n7 = Node((n1.x+n2.x)/2, (n1.y+n2.y)/2, f"{lvl}n7", hanging=not hn1.hyperref.boundary)
