@@ -4,7 +4,7 @@ from graphtest import GraphTest
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from p10 import P10
+from productions.p10 import P10
 import math
 import unittest
 
