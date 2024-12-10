@@ -26,7 +26,7 @@ class P12(Production):
         g.add_edge(HyperEdge((n4, n8), "E"))
         g.add_edge(HyperEdge((n8, n6), "E"))
         g.add_edge(HyperEdge((n6, n1), "E"))
-        g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
+        g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "S", rip=True))
         return g
 
     def get_right_side(self, left: Graph, lvl: int):
