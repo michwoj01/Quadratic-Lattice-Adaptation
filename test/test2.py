@@ -3,6 +3,7 @@ from node import Node
 from edge import HyperEdge
 from visualisation import draw
 from productions.p2 import P2
+from productions.p1 import P1
 import unittest
 
 class TestP2Case1(unittest.TestCase):
@@ -66,11 +67,12 @@ class TestP2Case2(unittest.TestCase):
         # |  \     /  |  \     /  |
         # E     Q     E     Q     E
         # |  /     \  |  /     \  |
-        # 8 -- 10 --- 9 --- E --- 6
+        # 8 --- E --- 9 --- E --- 6
         # |  \     /  |  \     /  |
         # E     Q     E     Q     E
         # |  /     \  |  /     \  |
         # 1 --- E --- 5 --- E --- 2
+
         self.g = GraphTest()
         n1 = Node(0, 0, "n1")
         n2 = Node(1, 0, "n2")
@@ -81,9 +83,7 @@ class TestP2Case2(unittest.TestCase):
         n7 = Node(0.5, 1, "n7")
         n8 = Node(0, 0.5, "n8")
         n9 = Node(0.5, 0.5, "n9")
-        n10 = Node(0.25, 0.5, "n10", hanging=True)
-
-        for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9, n10]:
+        for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             self.g.add_node(n)
 
         # around the border
@@ -100,19 +100,15 @@ class TestP2Case2(unittest.TestCase):
         self.g.add_edge(HyperEdge((n5, n9), "E"))
         self.g.add_edge(HyperEdge((n6, n9), "E"))
         self.g.add_edge(HyperEdge((n7, n9), "E"))
-        # self.g.add_edge(HyperEdge((n8, n9), "E"))
-
-        # To hanging node
-        self.g.add_edge(HyperEdge((n8, n10), "E"))
-        self.g.add_edge(HyperEdge((n10, n9), "E"))
+        self.g.add_edge(HyperEdge((n8, n9), "E"))
 
         # Q-tag hyper-nodes
         self.g.add_edge(HyperEdge((n1, n5, n9, n8), "Q", rip=True))
-        self.g.add_edge(HyperEdge((n5, n2, n6, n9), "Q", rip=True))
+        self.g.add_edge(HyperEdge((n5, n2, n6, n9), "Q", rip=False))
         self.g.add_edge(HyperEdge((n8, n9, n7, n4), "Q", rip=True))
-        self.g.add_edge(HyperEdge((n9, n6, n3, n7), "Q", rip=True))
+        self.g.add_edge(HyperEdge((n9, n6, n3, n7), "Q", rip=False))
 
-
+        self.p1 = P1()
         self.p2 = P2()
 
         pass
@@ -129,9 +125,11 @@ class TestP2Case2(unittest.TestCase):
         self.assertEqual(cnt.hyper_E_boundary, 8)
 
     def test_stage1(self):
-        applied = self.g.apply(self.p2)
+        applied_1 = self.g.apply(self.p1)
         draw(self.g, "draw/test2-case2-stage1.png")
-        self.assertEqual(applied, 2)
+        applied_2 = self.g.apply(self.p2)
+        draw(self.g, "draw/test2-case2-stage2.png")
+        self.assertEqual(applied_2, 2)
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 18)
@@ -143,3 +141,4 @@ class TestP2Case2(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
