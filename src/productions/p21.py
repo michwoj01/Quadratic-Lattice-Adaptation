@@ -1,5 +1,5 @@
 from graph import Graph
-from production import Production
+from productions.production import Production
 from node import Node
 from edge import HyperEdge
 
