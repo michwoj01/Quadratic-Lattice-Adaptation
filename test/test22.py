@@ -293,7 +293,6 @@ class TestP22Case4(unittest.TestCase):
         applied = self.g.apply(self.p22)
         draw(self.g, "draw/test22-case4-stage1.png")
         self.assertEqual(applied, 1)
-        print("asd")
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 16)
