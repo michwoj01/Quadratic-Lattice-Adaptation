@@ -117,11 +117,11 @@ class TestP2Case2(unittest.TestCase):
         draw(self.g, "draw/test2-case2-stage0.png")
 
         cnt = self.g.count_nodes()
-        self.assertEqual(cnt.normal, 10)
-        self.assertEqual(cnt.normal_hanging, 1)
+        self.assertEqual(cnt.normal, 9)
+        self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper_Q, 4)
-        self.assertEqual(cnt.hyper_Q_rip, 4)
-        self.assertEqual(cnt.hyper_E, 13)
+        self.assertEqual(cnt.hyper_Q_rip, 2)
+        self.assertEqual(cnt.hyper_E, 12)
         self.assertEqual(cnt.hyper_E_boundary, 8)
 
     def test_stage1(self):
@@ -129,13 +129,13 @@ class TestP2Case2(unittest.TestCase):
         draw(self.g, "draw/test2-case2-stage1.png")
         applied_2 = self.g.apply(self.p2)
         draw(self.g, "draw/test2-case2-stage2.png")
-        self.assertEqual(applied_2, 2)
+        self.assertEqual(applied_2, 1)
 
         cnt = self.g.count_nodes()
         self.assertEqual(cnt.normal, 18)
         self.assertEqual(cnt.normal_hanging, 2)
         self.assertEqual(cnt.hyper_Q, 10)
-        self.assertEqual(cnt.hyper_Q_rip, 2)
+        self.assertEqual(cnt.hyper_Q_rip, 0)
         self.assertEqual(cnt.hyper_E, 27)
         self.assertEqual(cnt.hyper_E_boundary, 12)
 
