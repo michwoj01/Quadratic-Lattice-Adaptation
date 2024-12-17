@@ -371,11 +371,11 @@ class TestP11Case7(unittest.TestCase):
         self.g.add_edge(HyperEdge((n8, n1), "E"))
         self.g.add_edge(HyperEdge((n1, n2, n5, n3, n4, n6), "S", rip=True))
 
+
         self.g.add_edge(HyperEdge((n2, n9), "E", boundary=True))
         self.g.add_edge(HyperEdge((n7, n10), "E"))
         self.g.add_edge(HyperEdge((n1, n11), "E"))
-        # self.g.add_edge(HyperEdge((n1, n12), "E"))
-        self.g.add_edge(HyperEdge((n12, n8), "E"))
+        self.g.add_edge(HyperEdge((n1, n12), "E"))
         self.g.add_edge(HyperEdge((n6, n13), "E"))
         self.g.add_edge(HyperEdge((n4, n14), "E", boundary=True))
 
@@ -389,7 +389,6 @@ class TestP11Case7(unittest.TestCase):
         self.g.add_edge(HyperEdge((n11, n1, n7, n10), "Q", rip=True))
         self.g.add_edge(HyperEdge((n12, n13, n6, n1), "Q", rip=True))
         self.g.add_edge(HyperEdge((n13, n14, n4, n6), "Q", rip=True))
-        self.g.add_edge(HyperEdge((n11, n12, n8, n1), "Q", rip=True))
 
     def test_stage0(self):
         draw(self.g, "draw/test11-case7-stage0.png")
@@ -399,8 +398,8 @@ class TestP11Case7(unittest.TestCase):
         self.assertEqual(cnt.normal_hanging, 2)
         self.assertEqual(cnt.hyper_S, 1)
         self.assertEqual(cnt.hyper_S_rip, 1)
-        self.assertEqual(cnt.hyper_Q, 5)
-        self.assertEqual(cnt.hyper_Q_rip, 5)
+        self.assertEqual(cnt.hyper_Q, 4)
+        self.assertEqual(cnt.hyper_Q_rip, 4)
         self.assertEqual(cnt.hyper_E, 19)
         self.assertEqual(cnt.hyper_E_boundary, 10)
 
@@ -414,8 +413,8 @@ class TestP11Case7(unittest.TestCase):
         self.assertEqual(cnt.normal_hanging, 1)
         self.assertEqual(cnt.hyper_S, 6)
         self.assertEqual(cnt.hyper_S_rip, 0)
-        self.assertEqual(cnt.hyper_Q, 5)
-        self.assertEqual(cnt.hyper_Q_rip, 5)
+        self.assertEqual(cnt.hyper_Q, 4)
+        self.assertEqual(cnt.hyper_Q_rip, 4)
         self.assertEqual(cnt.hyper_E, 29)
         self.assertEqual(cnt.hyper_E_boundary, 13)
 

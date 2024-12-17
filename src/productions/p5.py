@@ -31,10 +31,10 @@ class P5(Production):
         # passed from above & updated with correct xy values
         n1, n2, n3, n4, n5, n6, n7, hn1, hn2, hn3, hn4, hn5, hn6, hn7, hQ = left.ordered_nodes
         g = Graph()
-        n5 = Node(n5.x, n5.y, "n5", hanging=False)
-        n6 = Node(n6.x, n6.y, "n6", hanging=False)
-        n7 = Node(n7.x, n7.y, "n7", hanging=False)
-        n8 = Node((n3.x+n4.x)/2, n3.y, "n8", hanging=not hn5.hyperref.boundary)
+        n5 = Node(n5.x, n5.y, n5.label, hanging=False)
+        n6 = Node(n6.x, n6.y, n6.label, hanging=False)
+        n7 = Node(n7.x, n7.y, n7.label, hanging=False)
+        n8 = Node((n3.x+n4.x)/2, (n3.y+n4.y)/2, f"{lvl}n8", hanging=not hn5.hyperref.boundary)
         n9 = Node((n1.x+n2.x+n3.x+n4.x)/4, (n1.y+n2.y+n3.y+n4.y)/4, f"{lvl}n9")
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:
             g.add_node(n)
