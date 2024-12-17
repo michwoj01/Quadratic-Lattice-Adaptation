@@ -39,8 +39,8 @@ class P11(Production):
         n1, n2, n3, n4, n5, n6, n7, n8, hn1, hn2, hn3, hn4, hn5, hn6, hn7, hn8, hn9 = left.ordered_nodes
 
         g = Graph()
-        n7 = Node(x=mean((n1.x, n2.x)), y=mean((n1.y, n2.y)), label="n7")
-        n8 = Node(x=mean((n1.x, n6.x)), y=mean((n1.y, n6.y)), label="n8")
+        n7 = Node(x=n7.x, y=n7.y, label=n7.label)
+        n8 = Node(x=n8.x, y=n8.y, label=n8.label)
         n9 = Node(x=mean((n2.x, n5.x)), y=mean((n2.y, n5.y)), label=f"{lvl}n9", hanging=not hn3.hyperref.boundary)
         n10 = Node(x=mean((n3.x, n5.x)), y=mean((n3.y, n5.y)), label=f"{lvl}n10", hanging=not hn4.hyperref.boundary)
         n11 = Node(x=mean((n3.x, n4.x)), y=mean((n3.y, n4.y)), label=f"{lvl}n11", hanging=not hn5.hyperref.boundary)
