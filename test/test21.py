@@ -13,17 +13,17 @@ class TestP21Case1(unittest.TestCase):
     def setUp(self):
         self.g = GraphTest()
 
-        n1 = Node(0.2,0 , "n1", hanging=None)
-        n2 = Node(1, 0, "n2", hanging=None)
-        n3 = Node(1, 1, "n3", hanging=None)
-        n4 = Node(0.2, 1, "n4", hanging=None)
-        n5 = Node(0, 0.5, "n5", hanging=None)
-        n6 = Node(0.6, 0, "n6", hanging=None)
+        n1 = Node(0.2,0 , "n1", hanging_ignore=True)
+        n2 = Node(1, 0, "n2", hanging_ignore=True)
+        n3 = Node(1, 1, "n3", hanging_ignore=True)
+        n4 = Node(0.2, 1, "n4", hanging_ignore=True)
+        n5 = Node(0, 0.5, "n5", hanging_ignore=True)
+        n6 = Node(0.6, 0, "n6", hanging_ignore=True)
 
         for n in [n1, n2, n3, n4, n5, n6]:
             self.g.add_node(n)
 
-        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5,n6), "Q", rip=False))
+        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5,n6), "S", rip=False))
         
         self.p10= P21()
 
@@ -34,8 +34,8 @@ class TestP21Case1(unittest.TestCase):
         self.assertEqual(cnt.normal, 6)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 0)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 0)
 
     def test_stage1(self):
         applied = self.g.apply(self.p10)
@@ -46,8 +46,8 @@ class TestP21Case1(unittest.TestCase):
         self.assertEqual(cnt.normal, 6)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 1)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 1)
 
 
 # 2 TEST - additional vertex - production applied
@@ -55,18 +55,18 @@ class TestP21Case2(unittest.TestCase):
     def setUp(self):
         self.g = GraphTest()
 
-        n1 = Node(0.2,0 , "n1", hanging=None)
-        n2 = Node(1, 0, "n2", hanging=None)
-        n3 = Node(1, 1, "n3", hanging=None)
-        n4 = Node(0.2, 1, "n4", hanging=None)
-        n5 = Node(0, 0.5, "n5", hanging=None)
-        n6 = Node(0.6, 0, "n6", hanging=None)
+        n1 = Node(0.2,0 , "n1", hanging_ignore=True)
+        n2 = Node(1, 0, "n2", hanging_ignore=True)
+        n3 = Node(1, 1, "n3", hanging_ignore=True)
+        n4 = Node(0.2, 1, "n4", hanging_ignore=True)
+        n5 = Node(0, 0.5, "n5", hanging_ignore=True)
+        n6 = Node(0.6, 0, "n6", hanging_ignore=True)
         n7 = Node(0, 1, "n7")
 
         for n in [n1, n2, n3, n4, n5, n6, n7]:
             self.g.add_node(n)
 
-        self.g.add_edge(HyperEdge((n1, n2, n3, n4, n5, n6, n7), "Q", rip=False))
+        self.g.add_edge(HyperEdge((n1, n2, n3, n4, n5, n6, n7), "S", rip=False))
         
         self.p21= P21()
 
@@ -77,8 +77,8 @@ class TestP21Case2(unittest.TestCase):
         self.assertEqual(cnt.normal, 7)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 0)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 0)
 
     def test_stage1(self):
         applied = self.g.apply(self.p21)
@@ -89,24 +89,24 @@ class TestP21Case2(unittest.TestCase):
         self.assertEqual(cnt.normal, 7)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 1)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 1)
 
 # 3 TEST - removed vertex, production is not applied
 class TestP21Case3(unittest.TestCase):
     def setUp(self):
         self.g = GraphTest()
 
-        n1 = Node(0.2,0 , "n1", hanging=None)
-        n2 = Node(1, 0, "n2", hanging=None)
-        n3 = Node(1, 1, "n3", hanging=None)
-        n4 = Node(0.2, 1, "n4", hanging=None)
-        n5 = Node(0, 0.5, "n5", hanging=None)
+        n1 = Node(0.2,0 , "n1", hanging_ignore=True)
+        n2 = Node(1, 0, "n2", hanging_ignore=True)
+        n3 = Node(1, 1, "n3", hanging_ignore=True)
+        n4 = Node(0.2, 1, "n4", hanging_ignore=True)
+        n5 = Node(0, 0.5, "n5", hanging_ignore=True)
 
         for n in [n1, n2, n3, n4, n5]:
             self.g.add_node(n)
 
-        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5), "Q", rip=False))
+        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5), "S", rip=False))
         
         self.p21= P21()
 
@@ -117,8 +117,8 @@ class TestP21Case3(unittest.TestCase):
         self.assertEqual(cnt.normal, 5)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 0)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 0)
 
     def test_stage1(self):
         applied = self.g.apply(self.p21)
@@ -129,8 +129,8 @@ class TestP21Case3(unittest.TestCase):
         self.assertEqual(cnt.normal, 5)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 0)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 0)
 
 
 # 4 TEST - R=0, production is not applied
@@ -138,17 +138,17 @@ class TestP21Case4(unittest.TestCase):
     def setUp(self):
         self.g = GraphTest()
 
-        n1 = Node(0.2,0 , "n1", hanging=None)
-        n2 = Node(1, 0, "n2", hanging=None)
-        n3 = Node(1, 1, "n3", hanging=None)
-        n4 = Node(0.2, 1, "n4", hanging=None)
-        n5 = Node(0, 0.5, "n5", hanging=None)
-        n6 = Node(0.6, 0, "n6", hanging=None)
+        n1 = Node(0.2,0 , "n1", hanging_ignore=True)
+        n2 = Node(1, 0, "n2", hanging_ignore=True)
+        n3 = Node(1, 1, "n3", hanging_ignore=True)
+        n4 = Node(0.2, 1, "n4", hanging_ignore=True)
+        n5 = Node(0, 0.5, "n5", hanging_ignore=True)
+        n6 = Node(0.6, 0, "n6", hanging_ignore=True)
 
         for n in [n1, n2, n3, n4, n5, n6]:
             self.g.add_node(n)
 
-        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5,n6), "Q", rip=True))
+        self.g.add_edge(HyperEdge((n3, n4, n1, n2, n5,n6), "S", rip=True))
         
         self.p21= P21()
 
@@ -159,8 +159,8 @@ class TestP21Case4(unittest.TestCase):
         self.assertEqual(cnt.normal, 6)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 1)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 1)
 
     def test_stage1(self):
         applied = self.g.apply(self.p21)
@@ -171,8 +171,8 @@ class TestP21Case4(unittest.TestCase):
         self.assertEqual(cnt.normal, 6)
         self.assertEqual(cnt.normal_hanging, 0)
         self.assertEqual(cnt.hyper, 1)
-        self.assertEqual(cnt.hyper_Q, 1)
-        self.assertEqual(cnt.hyper_Q_rip, 1)
+        self.assertEqual(cnt.hyper_S, 1)
+        self.assertEqual(cnt.hyper_S_rip, 1)
 
 
 if __name__ == '__main__':
