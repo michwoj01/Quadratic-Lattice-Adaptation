@@ -48,3 +48,13 @@ class Node:
             return self.label.replace("n", "").replace("m", "")
 
         return self.label
+
+
+    def with_hanging_false(self):
+        return Node(x=self.x,
+                    y=self.y,
+                    label=self.label,
+                    hanging=False,
+                    hyper=self.hyper,
+                    hyperref=self.hyperref,
+                    hanging_ignore=self.hanging_ignore)

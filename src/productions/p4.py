@@ -34,9 +34,9 @@ class P4(Production):
         n7 = Node((n1.x + n2.x)/2, (n1.y + n2.y)/2, f"{lvl}n7", hanging=not hn1n2.hyperref.boundary)
         n8 = Node((n3.x + n4.x)/2, (n3.y + n4.y)/2, f"{lvl}n8", hanging=not hn3n4.hyperref.boundary)
         n9 = Node((n1.x + n2.x + n3.x + n4.x)/4, (n1.y + n2.y + n3.y + n4.y)/4, f"{lvl}n9")
-        
-        n5 = Node(old_n5.x, old_n5.y, old_n5.label)
-        n6 = Node(old_n6.x, old_n6.y, old_n6.label)
+
+        n5 = old_n5.with_hanging_false()
+        n6 = old_n6.with_hanging_false()
 
 
         for n in [n1, n2, n3, n4, n5, n6, n7, n8, n9]:

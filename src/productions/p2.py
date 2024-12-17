@@ -29,7 +29,7 @@ class P2(Production):
         n1, n2, n3, n4, old_n5, n1n5, n5n2, n2n3, n3n4, n4n1, _  = left.ordered_nodes
         g = Graph()
 
-        n5 = Node(old_n5.x, old_n5.y, old_n5.label)
+        n5 = old_n5.with_hanging_false()
         n6 = Node((n2.x + n3.x)/2, (n2.y + n3.y)/2, f"{lvl}n6", hanging=not n2n3.hyperref.boundary)
         n7 = Node((n3.x + n4.x)/2, (n3.y + n4.y)/2, f"{lvl}n7", hanging=not n3n4.hyperref.boundary)
         n8 = Node((n4.x + n1.x)/2, (n4.y + n1.y)/2, f"{lvl}n8", hanging=not n4n1.hyperref.boundary)
