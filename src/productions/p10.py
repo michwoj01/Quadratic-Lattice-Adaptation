@@ -44,7 +44,7 @@ class P10(Production):
         # passed from above & updated with correct xy values
         n1, n2, n3, n4, n5, n6,  n7,  hn1, hn2, hn3, hn4, hn5, hn6 , hn7 , hn8= left.ordered_nodes
         g = Graph()
-        n7 = Node((n1.x+n2.x)/2, (n1.y+n2.y)/2, "n7", hanging=False)
+        n7 = n7.with_hanging_false()
         n8 = Node((n2.x+n5.x)/2, (n2.y+n5.y)/2, f"{lvl}n8", hanging=not hn2.hyperref.boundary)
         n9 = Node((n6.x+n4.x)/2, (n6.y+n4.y)/2, f"{lvl}n9", hanging=not hn5.hyperref.boundary)
         n10 = Node((n6.x+n1.x)/2, (n6.y+n1.y)/2, f"{lvl}n10", hanging=not hn6.hyperref.boundary)
