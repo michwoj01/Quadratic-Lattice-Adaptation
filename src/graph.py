@@ -117,7 +117,7 @@ class Graph:
             for node in right._G.nodes:
                 # self._print("adding", node)
                 if self._G.has_node(node):
-                    self._substitute_node(node)
+                    self.substitute_node(node)
                 else:
                     # call to our add_node() to update ordered_nodes list
                     self.add_node(node)
@@ -137,7 +137,7 @@ class Graph:
         if self.debug:
             print(*args, **kwargs)
 
-    def _substitute_node(self, node: Node):
+    def substitute_node(self, node: Node):
         """
         Node must be re-added to update properties like hanging
         """
@@ -150,3 +150,22 @@ class Graph:
         self.add_node(node)
         for v in nb:
             self._G.add_edge(node, v)
+
+    def rip_single_hyperedge(self, x: float, y:float):
+        node = self._get_nearest_hyperedge(x, y)
+        hyperedge = node.hyperref
+        new_hyperedge = HyperEdge(hyperedge.nodes, hyperedge.tag, rip=True)
+        new_node = Node(node.x, node.y, node.label, hyper=True, hyperref=new_hyperedge)
+        self.substitute_node(new_node)
+
+    def _get_nearest_hyperedge(self, x: float, y: float) -> Node:
+        nearest_dist = float("inf")
+        best = None
+        for node in self._G.nodes:
+            if not node.hyper:
+                continue
+            dist = (node.x - x)**2 + (node.y - y)**2
+            if dist < nearest_dist:
+                nearest_dist = dist
+                best = node
+        return best
