@@ -90,20 +90,19 @@ class TestGroup3(unittest.TestCase):
             self.g.add_edge(q)
 
     def test_stage0(self):
-        draw(self.g, "../../test/draw/hyper_g3_s0.png")
-        draw_without_hyper(self.g, "../../test/draw/g3_s0.png")
+        draw(self.g, "../../test/draw/hyper_group3_stage0.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage0.png")
 
     def test_stage1(self):
         self.manual_rip(0.90, 0.67)
-        draw(self.g, "../../test/draw/hyper_g3_s1.png")
-        draw_without_hyper(self.g, "../../test/draw/g3_s1.png")
+        draw(self.g, "../../test/draw/hyper_group3_stage1.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage1.png")
 
     def test_stage2(self):
-        self.apply_all_exhaustively()
-        draw(self.g, "../../test/draw/hyper_g3_s2.png")
-        draw_without_hyper(self.g, "../../test/draw/g3_s2.png")
-
-
+        # self.apply_all_exhaustively()
+        self.g.apply(P1())
+        draw(self.g, "../../test/draw/hyper_group3_stage2.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage2.png")
 
 
 if __name__ == '__main__':
