@@ -1,3 +1,4 @@
+from matplotlib import rcParams
 import networkx as nx
 
 from graph import Graph
@@ -92,6 +93,9 @@ def draw_without_hyper(g: Graph, filename: str = "test_draw.png"):
            (edge[1].hyper and edge[1].hyperref.tag == "E")
     ]
     nx.draw_networkx_edges(gx, pos, width=5, alpha=0.3, edgelist=edges)
+
+    gx_hyper_inner = gx.subgraph(filter(lambda node: node.hyper and node.hyperref.tag in ["S", "Q"] and node.hyperref.rip, gx))
+    plt.scatter([node.x for node in gx_hyper_inner.nodes()], [node.y for node in gx_hyper_inner.nodes()], c="red", s=rcParams['lines.markersize'] ** 2 * 10)
 
     ax = plt.gca()
     ax.margins(0.10)
