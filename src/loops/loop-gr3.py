@@ -29,7 +29,6 @@ class TestGroup3(unittest.TestCase):
         while applied > 0:
             applied = 0
             for prod_i, prod in enumerate(self.prods):
-                print(f'trying to apply {self.prod_names[prod_i]}')
                 curr_applied = self.g.apply(prod)
                 if curr_applied > 0:
                     print(f'Applied P{self.prod_names[prod_i]} {curr_applied} time(s)')
@@ -89,20 +88,31 @@ class TestGroup3(unittest.TestCase):
         for q in [q1, q2, q3, q4, q5, q6, q7]:
             self.g.add_edge(q)
 
-    def test_stage0(self):
+    def test(self):
         draw(self.g, "../../test/draw/hyper_group3_stage0.png")
         draw_without_hyper(self.g, "../../test/draw/group3_stage0.png")
 
-    def test_stage1(self):
         self.manual_rip(0.90, 0.67)
         draw(self.g, "../../test/draw/hyper_group3_stage1.png")
         draw_without_hyper(self.g, "../../test/draw/group3_stage1.png")
 
-    def test_stage2(self):
-        # self.apply_all_exhaustively()
-        self.g.apply(P1())
+        self.apply_all_exhaustively()
         draw(self.g, "../../test/draw/hyper_group3_stage2.png")
         draw_without_hyper(self.g, "../../test/draw/group3_stage2.png")
+
+        self.manual_rip(0.85, 0.73)
+        draw(self.g, "../../test/draw/hyper_group3_stage3.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage3.png")
+
+        self.apply_all_exhaustively()
+        draw(self.g, "../../test/draw/hyper_group3_stage4.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage4.png")
+
+        # self.manual_rip(?, ?)
+        # draw(self.g, "../../test/draw/hyper_group3_stage5.png")
+        # draw_without_hyper(self.g, "../../test/draw/group3_stage5.png")
+
+
 
 
 if __name__ == '__main__':
