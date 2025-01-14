@@ -1,4 +1,6 @@
+from matplotlib import rcParams
 import networkx as nx
+
 from graph import Graph
 import matplotlib.pyplot as plt
 import os
@@ -15,10 +17,10 @@ def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
 
     if hyper:
         shape = "s" # square
-        size = 2000 # large
+        size = 1000 # large
     else:
         shape = "o" # round
-        size  = 200 # small
+        size  = 100 # small
 
     pos = {node: (node.x, node.y) for node in gx.nodes()}
     nx.draw_networkx_nodes(
@@ -52,7 +54,7 @@ def draw_nx_subgraph(g: Graph, gx: nx.Graph, hyper: bool) -> None:
 
 def draw(g: Graph, filename: str = "test_draw.png"):
     create_directory(filename)
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(24, 24))
 
     gx: nx.Graph = g._G
 
@@ -72,3 +74,34 @@ def draw(g: Graph, filename: str = "test_draw.png"):
     plt.savefig(filename)
     plt.cla()
     plt.clf()
+    plt.close()
+
+def draw_without_hyper(g: Graph, filename: str = "test_draw.png"):
+    create_directory(filename)
+    plt.figure(figsize=(24, 24))
+
+    gx: nx.Graph = g._G
+
+    gx_normal = gx.subgraph(filter(lambda node: not node.hyper, gx)).copy()
+
+    draw_nx_subgraph(g, gx_normal, False)
+
+    pos = {node: (node.x, node.y) for node in gx.nodes()}
+    edges = [
+        edge for edge in gx.edges
+        if (edge[0].hyper and edge[0].hyperref.tag == "E") or
+           (edge[1].hyper and edge[1].hyperref.tag == "E")
+    ]
+    nx.draw_networkx_edges(gx, pos, width=5, alpha=0.3, edgelist=edges)
+
+    gx_hyper_inner = gx.subgraph(filter(lambda node: node.hyper and node.hyperref.tag in ["S", "Q"] and node.hyperref.rip, gx))
+    plt.scatter([node.x for node in gx_hyper_inner.nodes()], [node.y for node in gx_hyper_inner.nodes()], c="red", s=rcParams['lines.markersize'] ** 2 * 10)
+
+    ax = plt.gca()
+    ax.margins(0.10)
+    plt.tight_layout()
+    plt.axis("off")
+    plt.savefig(filename)
+    plt.cla()
+    plt.clf()
+    plt.close()

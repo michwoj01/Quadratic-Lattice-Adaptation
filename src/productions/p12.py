@@ -5,7 +5,7 @@ from edge import HyperEdge
 import math
 
 @Production.register
-class P12Example(Production):
+class P12(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
         n1 = Node(0, 0, "n1")
@@ -26,15 +26,15 @@ class P12Example(Production):
         g.add_edge(HyperEdge((n4, n8), "E"))
         g.add_edge(HyperEdge((n8, n6), "E"))
         g.add_edge(HyperEdge((n6, n1), "E"))
-        g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "Q", rip=True))
+        g.add_edge(HyperEdge((n3, n4, n1, n2, n5, n6), "S", rip=True))
         return g
 
     def get_right_side(self, left: Graph, lvl: int):
         # passed from above & updated with correct xy values
         n1, n2, n3, n4, n5, n6, n7, n8, hn1, hn2, hn3, hn4, hn5, hn6, hn7, hn8, hn9 = left.ordered_nodes
         g = Graph()
-        n7 = Node((n1.x+n2.x)/2, (n1.y+n2.y)/2, "n7")
-        n8 = Node((n4.x + n6.x) / 2, (n4.y + n6.y) / 2, "n8")
+        n7 = n7.with_hanging_false()
+        n8 = n8.with_hanging_false()
         n9 = Node((n2.x+n5.x)/2, (n2.y+n5.y)/2, f"{lvl}n9", hanging=not hn3.hyperref.boundary)
         n10 = Node((n3.x+n5.x)/2, (n3.y+n5.y)/2, f"{lvl}n10", hanging=not hn4.hyperref.boundary)
         n11 = Node((n3.x+n4.x)/2, (n3.y+n4.y)/2, f"{lvl}n11", hanging=not hn5.hyperref.boundary)
@@ -58,12 +58,12 @@ class P12Example(Production):
         g.add_edge(HyperEdge((n12, n1), "E", boundary=hn8.hyperref.boundary))
 
         # to center hyper-node
-        g.add_edge(HyperEdge((n7, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n9, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n10, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n11, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n8, n13), "E", boundary=True))
-        g.add_edge(HyperEdge((n12, n13), "E", boundary=True))
+        g.add_edge(HyperEdge((n7, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n9, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n10, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n11, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n8, n13), "E", boundary=False))
+        g.add_edge(HyperEdge((n12, n13), "E", boundary=False))
 
         # Q-tag hyper-nodes
         g.add_edge(HyperEdge((n1, n7, n12, n13), "Q"))
