@@ -4,7 +4,7 @@ from graphtest import GraphTest
 from node import Node
 from edge import HyperEdge
 from visualisation import draw
-from productions.p22 import P22Example
+from productions.p22 import P22
 from pathlib import Path
 import unittest
 import math
@@ -73,7 +73,7 @@ class TestP22Case1(unittest.TestCase):
         self.assertEqual(ctn.hyper_unknown, 0)
 
     def test_stage1(self):
-        p22 = P22Example()
+        p22 = P22()
         applied = self.g.apply(p22)
         self.assertEqual(applied, 1)
     
@@ -160,7 +160,7 @@ class TestP22Case2(unittest.TestCase):
         self.assertEqual(ctn.hyper_unknown, 0)
 
     def test_stage1(self):
-        p22 = P22Example()
+        p22 = P22()
         applied = self.g.apply(p22)
         self.assertEqual(applied, 1)
     
@@ -217,7 +217,7 @@ class TestP22Case3(unittest.TestCase):
         self.assertEqual(ctn.hyper_unknown, 0)
 
     def test_stage1(self):
-        p22 = P22Example()
+        p22 = P22()
         applied = self.g.apply(p22)
         self.assertEqual(applied, 0)
     
@@ -238,7 +238,7 @@ class TestP22Case3(unittest.TestCase):
 
 class TestP22Case4(unittest.TestCase):
     def setUp(self):
-        self.p22 = P22Example()
+        self.p22 = P22()
         self.g = GraphTest()
 
         n1 = Node(0, 0, "n1")

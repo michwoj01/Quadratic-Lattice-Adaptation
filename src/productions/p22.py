@@ -4,7 +4,7 @@ from node import Node
 from edge import HyperEdge
 
 @Production.register
-class P22Example(Production):
+class P22(Production):
     def get_left_side(self) -> Graph:
         g = Graph()
         n1 = Node(1, 1,       'n1', hanging=None, hanging_ignore=True) # ignore hanging when checking isomorphism
