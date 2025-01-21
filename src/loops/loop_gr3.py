@@ -41,6 +41,7 @@ class TestGroup3(unittest.TestCase):
         self.prods = [P1(), P2(), P3(), P4(), P5(), P6(), P8(), P9(), P10(), P11(), P12(), P22Example()]
         self.prod_names = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 22]
         self.g = GraphTest()
+
         n1 = Node(0, 0, "n1")
         n2 = Node(1, 0, "n2")
         n3 = Node(1, 1, "n3")
@@ -75,7 +76,7 @@ class TestGroup3(unittest.TestCase):
 
         q1 = HyperEdge((n3, n4, n8, n9), "Q", rip=False)
         q2 = HyperEdge((n3, n11, n7, n8), "Q", rip=False)
-        q3 = HyperEdge((n5, n6, n7, n8, n9, n10), "Q", rip=False)
+        q3 = HyperEdge((n5, n6, n7, n8, n9, n10), "S", rip=False)
         q4 = HyperEdge((n1, n5, n10, n12), "Q", rip=False)
         q5 = HyperEdge((n1, n2, n5, n6), "Q", rip=False)
         q6 = HyperEdge((n2, n6, n7, n11), "Q", rip=False)
@@ -108,12 +109,13 @@ class TestGroup3(unittest.TestCase):
         draw(self.g, "../../test/draw/hyper_group3_stage4.png")
         draw_without_hyper(self.g, "../../test/draw/group3_stage4.png")
 
-        # self.manual_rip(?, ?)
-        # draw(self.g, "../../test/draw/hyper_group3_stage5.png")
-        # draw_without_hyper(self.g, "../../test/draw/group3_stage5.png")
+        self.manual_rip(0.80, 0.75)
+        draw(self.g, "../../test/draw/hyper_group3_stage5.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage5.png")
 
-
-
+        self.apply_all_exhaustively()
+        draw(self.g, "../../test/draw/hyper_group3_stage6.png")
+        draw_without_hyper(self.g, "../../test/draw/group3_stage6.png")
 
 if __name__ == '__main__':
     unittest.main()

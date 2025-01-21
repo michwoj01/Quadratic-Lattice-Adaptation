@@ -74,11 +74,11 @@ class P11(Production):
         g.add_edge(HyperEdge((n8, n13), "E", boundary=False))
 
         # S-tag hyper-nodes
-        g.add_edge(HyperEdge((n8, n1, n7, n13), "S", boundary=False))
-        g.add_edge(HyperEdge((n7, n2, n9, n13), "S", boundary=False))
-        g.add_edge(HyperEdge((n9, n5, n10, n13), "S", boundary=False))
-        g.add_edge(HyperEdge((n10, n3, n11, n13), "S", boundary=False))
-        g.add_edge(HyperEdge((n11, n4, n12, n13), "S", boundary=False))
-        g.add_edge(HyperEdge((n12, n6, n8, n13), "S", boundary=False))
+        g.add_edge(HyperEdge((n8, n1, n7, n13), "Q", boundary=False))
+        g.add_edge(HyperEdge((n7, n2, n9, n13), "Q", boundary=False))
+        g.add_edge(HyperEdge((n9, n5, n10, n13), "Q", boundary=False))
+        g.add_edge(HyperEdge((n10, n3, n11, n13), "Q", boundary=False))
+        g.add_edge(HyperEdge((n11, n4, n12, n13), "Q", boundary=False))
+        g.add_edge(HyperEdge((n12, n6, n8, n13), "Q", boundary=False))
 
         return g
